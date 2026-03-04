@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>My Heart Belongs to You 💖</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Quicksand', sans-serif;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: linear-gradient(135deg, #FF61D2, #FE9090, #FFB8D1); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start; 
+    transition: background 0.6s ease;
+}
+
+/* Yellow Corner Hearts */
+.corner-hearts {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    z-index: 10;
+    animation: floatGlow 3s infinite ease-in-out;
+}
+#tl-heart { top: 10px; left: 10px; }
+#tr-heart { top: 10px; right: 10px; }
+
+/* Main Heart Area - SIZE INCREASED */
+#heart-stage {
+    position: relative;
+    width: 360px; 
+    height: 340px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 50;
+    margin-top: 10px; 
+    flex-shrink: 0;
+}
+
+/* Centered Image - EXACTLY IN THE HEART CENTER */
+.center-photo {
+    position: absolute;
+    top: 44%; /* Shifted up slightly to match the mathematical heart center */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 135px; /* Slightly bigger to match bigger heart */
+    height: 135px;
+    border-radius: 50%;
+    border: 4.5px solid #fff;
+    box-shadow: 0 0 25px rgba(255, 20, 147, 0.6);
+    overflow: hidden;
+    z-index: 100;
+    animation: pulseImg 2s infinite ease-in-out;
+}
+.center-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Glass Letter Box - CENTERED WITH MORE SPACING */
+.letter-box {
+    position: relative;
+    margin-top: 125px; /* Pushes away from heart */
+    margin-bottom: 50px; /* Pushes away from bottom nav */
+    width: 92%; 
+    max-width: 600px; 
+    height: auto;
+    max-height: 45vh; /* Prevents it from touching the heart */
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 25px;
+    padding: 30px; /* INCREASED PADDING for more space */
+    border: 1.5px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    z-index: 60;
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 1s ease-out;
+}
+
+.letter-box::-webkit-scrollbar {
+    display: none;
+}
+
+#typewriter-text {
+    font-family: 'Dancing Script', cursive;
+    color: #fff;
+    font-size: 1.3rem; 
+    line-height: 1.7; /* ADDED SPACING BETWEEN LINES */
+    letter-spacing: 0.5px; /* ADDED SPACING BETWEEN LETTERS */
+    text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+/* SIGNATURE RIGHT ALIGNED */
+#signature-text {
+    font-family: 'Dancing Script', cursive;
+    color: #fff;
+    font-size: 1.3rem; 
+    line-height: 1.7;
+    text-align: right; 
+    margin-top: 15px;
+}
+
+/* Bottom Nav - One Line */
+.bottom-nav {
+    position: fixed;
+    bottom: 10px; 
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    z-index: 1000;
+}
+
+.action-btn {
+    background: rgba(255, 255, 255, 0.3);
+    border: 1.5px solid #fff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+    transition: 0.3s;
+}
+.action-btn:active { transform: scale(0.95); }
+
+.author-link {
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #E60073;
+    padding: 0 5px;
+    white-space: nowrap;
+}
+.author-link span {
+    color: #D10000;
+    font-weight: 900;
+}
+
+.flower-point { position: absolute; font-size: 1.3rem; pointer-events: none; }
+.star-point { position: absolute; font-size: 0.8rem; color: #FFD700; pointer-events: none; }
+
+/* Fixed Labels Exact Match to Screenshot */
+.heart-label {
+    position: absolute;
+    background: #fff;
+    color: #FF1493;
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.72rem;
+    font-weight: 800;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    z-index: 200;
+    white-space: nowrap;
+    opacity: 0;
+    animation: popIn 0.5s ease forwards;
+}
+
+/* Adjusted label positions for bigger heart */
+.pos-1 { top: 7%; left: 8%; animation-delay: 1.5s; }
+.pos-2 { top: 7%; right: 8%; animation-delay: 1.8s; }
+.pos-3 { top: 40%; left: -2%; animation-delay: 2.1s; }
+.pos-4 { top: 40%; right: -2%; animation-delay: 2.4s; }
+.pos-5 { bottom: -2%; left: 50%; transform: translateX(-50%); animation-delay: 2.7s; }
+
+/* Animations */
+@keyframes pulseImg { 0%, 100% {transform: translate(-50%, -50%) scale(1);} 50% {transform: translate(-50%, -50%) scale(1.05);} }
+@keyframes slideUp { from {transform: translateY(30px); opacity: 0;} to {transform: translateY(0); opacity: 1;} }
+@keyframes floatGlow { 0%, 100% {transform: translateY(0); filter: drop-shadow(0 0 5px #FFD700);} 50% {transform: translateY(-8px); filter: drop-shadow(0 0 15px #FFD700);} }
+@keyframes popIn { from {transform: scale(0.5); opacity: 0;} to {transform: scale(1) translateX(0); opacity: 1;} }
+
+@media (max-width: 400px) {
+    #heart-stage { transform: scale(0.85); margin-top: 0; }
+    .letter-box { max-height: 50vh; padding: 20px; width: 96%; }
+    #typewriter-text, #signature-text { font-size: 1.15rem; }
+}
+</style>
+</head>
+<body>
+
+    <script src="assets/js/script.js"></script>
+
+    <div id="tl-heart" class="corner-hearts"></div>
+    <div id="tr-heart" class="corner-hearts"></div>
+
+    <div id="heart-stage">
+        <div class="center-photo">
+            <img src="assets/img/pic4.jpg" alt="Vidhi">
+        </div>
+        
+        <div class="heart-label pos-1">First Notification 📱</div>
+        <div class="heart-label pos-2">First Call 📞</div>
+        <div class="heart-label pos-3">Virtual Hugs 🤗</div>
+        <div class="heart-label pos-4">Butterflies 🦋</div>
+        <div class="heart-label pos-5">Meeting Soon? 🥺</div>
+    </div>
+
+    <div class="letter-box">
+        <div id="typewriter-text"></div>
+        <div id="signature-text"></div>
+    </div>
+
+    <div class="bottom-nav">
+        <button id="theme-btn" class="action-btn">Theme 🎨</button>
+        <a href="https://www.instagram.com/anmol.zsh" target="_blank" class="author-link">Made with ❤️ by <span>Anmol Jaisinghani</span></a>
+        <button id="music-btn" class="action-btn">🎵 Music</button>
+    </div>
+
+    <audio id="bg-music" loop autoplay>
+        <source src="assets/song/song.mp3" type="audio/mpeg">
+    </audio>
+
+<script>
+    const stage = document.getElementById('heart-stage');
+    
+    function drawPinkHeart() {
+        const cx = stage.offsetWidth / 2;
+        // Shifted y-center slightly up to perfectly align the math formula with the div center
+        const cy = stage.offsetHeight / 2 - 20; 
+        for (let t = 0; t <= Math.PI * 2; t += 0.08) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+            const fl = document.createElement('div');
+            fl.className = 'flower-point';
+            fl.innerHTML = '🌸';
+            // Increased multiplier from 9 to 11 to make heart BIGGER
+            fl.style.left = cx + (x * 11.5) + 'px'; 
+            fl.style.top = cy - (y * 11.5) + 'px';
+            fl.style.opacity = '0';
+            fl.style.transition = `opacity 0.6s ${t}s`;
+            stage.appendChild(fl);
+            setTimeout(() => fl.style.opacity = '1', 100);
+        }
+    }
+
+    function drawYellowHearts() {
+        const lBox = document.getElementById('tl-heart');
+        const rBox = document.getElementById('tr-heart');
+        for (let t = 0; t <= Math.PI * 2; t += 0.4) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = 13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t);
+            const st = document.createElement('div');
+            st.className = 'star-point';
+            st.innerHTML = '⭐';
+            st.style.left = (x * 1.8 + 30) + 'px';
+            st.style.top = (-y * 1.8 + 30) + 'px';
+            lBox.appendChild(st.cloneNode(true));
+            rBox.appendChild(st);
+        }
+    }
+
+    const mainText = "Hey Vidhi, ❤️\n\nBhale hi abhi tak real life me nahi mile hain, par sach batau? Tumhari ek notification se mera poora system boot up ho jata hai. Bina mile hi tumne mere dil ke firewall ko bypass kar diya hai. 💻✨\nHamari ye thodi der ki chats hi mere din ka best part hoti hain. Aisa lagta hai jaise meri chaotic life ka code finally bina kisi error ke smoothly run kar raha hai. Tumhare aane se pehle sab offline mode me tha, par ab connection ekdum 0 ms ki latency pe chal raha hai.\n\nwhile (true) {\n  love(Vidhi);\n} 💞";
+
+    const signature = "Forever Yours,\nWith Endless Love ❤️";
+
+    function startTypewriter() {
+        const mainEl = document.getElementById('typewriter-text');
+        const sigEl = document.getElementById('signature-text');
+        let i = 0, j = 0;
+        const speed = 15; // Bullet speed
+
+        const int1 = setInterval(() => {
+            if (i < mainText.length) {
+                if (mainText.charAt(i) === '\n') mainEl.innerHTML += "<br>";
+                else mainEl.innerHTML += mainText.charAt(i);
+                i++;
+            } else {
+                clearInterval(int1);
+                const int2 = setInterval(() => {
+                    if (j < signature.length) {
+                        if (signature.charAt(j) === '\n') sigEl.innerHTML += "<br>";
+                        else sigEl.innerHTML += signature.charAt(j);
+                        j++;
+                    } else clearInterval(int2);
+                }, speed);
+            }
+        }, speed);
+    }
+
+    const audio = document.getElementById('bg-music');
+    const mBtn = document.getElementById('music-btn');
+    mBtn.addEventListener('click', () => {
+        if (audio.paused) { audio.play(); mBtn.innerHTML = '⏸️ Pause'; }
+        else { audio.pause(); mBtn.innerHTML = '🎵 Music'; }
+    });
+
+    window.onload = () => {
+        drawPinkHeart();
+        drawYellowHearts();
+        setTimeout(startTypewriter, 800);
+        audio.play().catch(() => {});
+    };
+</script>
+<script src="assets/js/script.js"></script>
+</body>
+</html>

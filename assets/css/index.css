@@ -1,0 +1,210 @@
+/* Project: Love Gallery V10 - The Ultimate Restoration
+   Lead Developer: Anmol Jaisinghani (Atharv)
+   Strict Fixes: Original Title Colors, Single Line Buttons, Bottom Fixed Footer
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;600;700&family=Great+Vibes&display=swap');
+
+/* --- Root Variables for Deep Customization --- */
+:root {
+    --primary-bg: linear-gradient(135deg, #FF61D2, #FE9090, #FFB8D1);
+    --original-title-gradient: linear-gradient(45deg, #FF0080, #FF8C00, #FF69B4);
+    --footer-pink: #E60073; /* Deep Dark Pink */
+    --footer-red: #D10000;  /* Bold Dark Red */
+    --glass-fill: rgba(255, 255, 255, 0.22);
+    --glass-outline: rgba(255, 255, 255, 0.45);
+    --shadow-premium: 0 25px 50px rgba(0, 0, 0, 0.18);
+}
+
+/* --- Global Layout Configuration --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: var(--primary-bg);
+    background-size: 400% 400%;
+    animation: backgroundShift 15s ease infinite;
+    font-family: 'Quicksand', sans-serif;
+    overflow: hidden;
+    position: relative;
+    padding: 20px;
+    transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- THE MAIN BOLD CONTAINER --- */
+.glass-container {
+    background: var(--glass-fill);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 40px;
+    padding: 65px 25px;
+    width: 94%; 
+    max-width: 600px;
+    border: 2px solid var(--glass-outline);
+    box-shadow: var(--shadow-premium);
+    text-align: center;
+    z-index: 100;
+    animation: mainFloatUI 6s ease-in-out infinite;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+/* --- RESTORED: Original Header Style & Font --- */
+.main-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(3.8rem, 14vw, 6.5rem);
+    background: var(--original-title-gradient); /* Original Gradient Restored */
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+    filter: drop-shadow(0 4px 10px rgba(255, 255, 255, 0.3));
+    animation: titleGlow 2.5s ease-in-out infinite alternate;
+}
+
+.subtitle {
+    color: #ffffff;
+    font-size: 1.3rem;
+    margin-bottom: 50px;
+    font-weight: 600;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* --- FIXED: Single Line Buttons (Bade aur Bold) --- */
+.btn-container {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.btn {
+    flex: 1;
+    min-width: 0;
+    padding: 22px 5px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    background: linear-gradient(45deg, #FF0080, #FF8C00); /* Original Button Colors */
+    color: #ffffff;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    white-space: nowrap;
+    box-shadow: 0 10px 20px rgba(255, 0, 128, 0.25);
+}
+
+.btn:hover {
+    transform: translateY(-8px) scale(1.05);
+    box-shadow: 0 15px 35px rgba(255, 0, 128, 0.4);
+    filter: brightness(1.1);
+}
+
+/* --- FIXED: Bottom Aligned Footer with Dynamic Colors --- */
+.footer-area {
+    position: fixed;
+    bottom: 40px;
+    width: 100%;
+    text-align: center;
+    z-index: 200;
+}
+
+.love-msg {
+    color: var(--footer-pink); /* Requirements: Dark Pink */
+    font-size: 1.15rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    animation: textPulse 3s infinite;
+}
+
+.insta-link {
+    display: inline-block;
+    color: var(--footer-red); /* Requirements: Bold Red */
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 800;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 10px 25px;
+    border-radius: 30px;
+    border: 2px solid var(--footer-red);
+    transition: 0.4s ease;
+}
+
+.insta-link:hover {
+    background: var(--footer-red);
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(209, 0, 0, 0.4);
+}
+
+/* --- Particle System Styling --- */
+.particle-heart {
+    position: absolute;
+    z-index: 1;
+    pointer-events: none;
+    animation: riseUpwards linear forwards;
+}
+
+/* --- Comprehensive Animations Library --- */
+@keyframes backgroundShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes mainFloatUI {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes titleGlow {
+    from { filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.4)); }
+    to { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.7)); }
+}
+
+@keyframes textPulse {
+    0%, 100% { opacity: 0.8; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes riseUpwards {
+    0% { transform: translateY(110vh) scale(0); opacity: 0; }
+    20% { opacity: 0.8; }
+    100% { transform: translateY(-20vh) scale(1.5) rotate(360deg); opacity: 0; }
+}
+
+/* --- High-Density Mobile Responsiveness --- */
+@media (max-width: 480px) {
+    .glass-container { padding: 55px 15px; width: 94%; }
+    .btn { padding: 22px 4px; font-size: 0.75rem; }
+    .main-title { font-size: 3.5rem; }
+    .footer-area { bottom: 25px; }
+}
+
+/* Final CSS Block Padding */
+.glass-container::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle at center, rgba(255,255,255,0.05), transparent);
+    border-radius: 40px;
+    pointer-events: none;
+}
+.btn:active { transform: scale(0.92); }
